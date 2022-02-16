@@ -35,8 +35,8 @@ class Dataset:
     def __init__(self, left_paths, right_paths):
         left = PathTF(left_paths)
         right = PathTF(right_paths)
-        self.left_path_ds = [ds for ds in left.split_iter()]
-        self.right_path_ds = [ds for ds in right.split_iter()]
+        self.left_path_ds = list(left.split_iter())
+        self.right_path_ds = list(right.split_iter())
 
     def __getitem__(self, index):
         left_xs = self.left_path_ds[index]
@@ -49,8 +49,7 @@ class Dataset:
         paths = tf.data.Dataset.from_tensor_slices(xs)
         image_ds = paths.map(load_and_preprocess_image)
         label_ds = tf.data.Dataset.from_tensor_slices(ys)
-        image_label_ds = tf.data.Dataset.zip((image_ds, label_ds))
-        return image_label_ds
+        return tf.data.Dataset.zip((image_ds, label_ds))
 
     def finish(self, image_label_ds, batch_size):
         # 设置一个和数据集大小一致的 shuffle buffer size（随机缓冲区大小）以保证数据

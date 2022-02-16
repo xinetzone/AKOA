@@ -15,12 +15,12 @@ def unzip(zip_path, save_dir='data/'):
     for path in Z.namelist():
         # 解压 left knee
         if 'left' in path.lower() or 'l_e_f_t' in path.lower():
-            Z.extract(path, save_dir+'left')
+            Z.extract(path, f'{save_dir}left')
 
     for path in Z.namelist():
         # 解压 right knee
         if 'right' in path.lower() or 'r_i_g_h_t' in path.lower():
-            Z.extract(path, save_dir+'right')
+            Z.extract(path, f'{save_dir}right')
     Z.close()
 
 
